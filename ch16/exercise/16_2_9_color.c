@@ -16,7 +16,10 @@ struct color darker(struct color c);
 int main(int argc, char* argv[]){
 
     struct color color_struct = make_color(244,244,244);
+    struct color color_original = make_color(100,100,100);
+
     struct color brighter_color;
+    struct color darker_color;
 
     printf("%d\n", color_struct.red);
     printf("%d\n", color_struct.green);
@@ -28,7 +31,12 @@ int main(int argc, char* argv[]){
     printf("%d\n", brighter_color.green);
     printf("%d\n", brighter_color.blue);
     
-        
+    darker_color = darker(color_original);  
+      
+    printf("%d\n", darker_color.red);
+    printf("%d\n", darker_color.green);
+    printf("%d\n", darker_color.blue);
+   
     return 0;
 }
 
@@ -63,6 +71,7 @@ struct color make_color(int red, int green, int blue){
 
 
 int getRed(struct color c){
+
     return c.red;
 }
 
@@ -112,9 +121,16 @@ struct color brighter(struct color c){
     return c;
 }
             
+/*Returns a color structure that represents a darker version of the color c.
+ * Each member multiplied by 0.7*/
+struct color darker(struct color c){
+    c.red = c.red * 0.7;
+    c.green = c.green * 0.7;
+    c.blue = c.blue * 0.7;
 
-            
-//struct color darker(struct color c);
+    return c;
+}
+
 
 
         
