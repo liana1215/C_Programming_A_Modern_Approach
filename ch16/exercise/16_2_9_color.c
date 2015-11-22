@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-struct color{
-    int red;
-    int green;
-    int blue;
+struct color {
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
 };
 
-struct color make_color(int red, int green, int blue);
-int getRed(struct color c);
-bool equal_color(struct color color1, struct color color2);
-struct color brighter(struct color c);
-struct color darker(struct color c);
+static struct color make_color(int red, int green, int blue);
+static unsigned char getRed(struct color c);
+static bool equal_color(struct color color1, struct color color2);
+static struct color brighter(struct color c);
+static struct color darker(struct color c);
 
-int main(int argc, char* argv[]){
-
+int 
+main(int argc, char* argv[]) {
     struct color color_struct = make_color(244,244,244);
     struct color color_original = make_color(100,100,100);
 
@@ -41,10 +41,9 @@ int main(int argc, char* argv[]){
 }
 
 /*Returns a color structure, if arguement < 0, set to 0, if > 255, set to 255*/
-struct color make_color(int red, int green, int blue){
-
-    struct color temp;
-
+static struct color 
+make_color(int red, int green, int blue) {
+    struct color temp; 
     if (red < 0)
         temp.red = 0;
     else if (red > 255)
@@ -70,12 +69,14 @@ struct color make_color(int red, int green, int blue){
 }
 
 
-int getRed(struct color c){
+static unsigned char 
+getRed(struct color c) {
 
     return c.red;
 }
 
-bool equal_color(struct color color1, struct color color2){
+static bool 
+equal_color(struct color color1, struct color color2) {
     
     if (color1.red == color2.red 
         && color1.green == color2.green 
@@ -88,13 +89,13 @@ bool equal_color(struct color color1, struct color color2){
  * all members = 0, function returns all members set as 3. If any member of c
  * is > 0 and < 3, set to 3 before dividing by 0.7. If dividing by 0.7 causes >
  * 255, set to 255.*/
-struct color brighter(struct color c){   
- 
-    if (c.red == 0 && c.green == 0 && c.blue == 0){
+static struct color 
+brighter(struct color c) {    
+    if (c.red == 0 && c.green == 0 && c.blue == 0) {
         c.red = 3;
         c.green = 3;
         c.blue = 3;
-    }else{
+    } else {
 
         if (c.red > 0 && c.red < 3)
             c.red = 3 / 0.7;
@@ -123,7 +124,8 @@ struct color brighter(struct color c){
             
 /*Returns a color structure that represents a darker version of the color c.
  * Each member multiplied by 0.7*/
-struct color darker(struct color c){
+static struct color 
+darker(struct color c) {
     c.red = c.red * 0.7;
     c.green = c.green * 0.7;
     c.blue = c.blue * 0.7;
