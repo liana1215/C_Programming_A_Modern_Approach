@@ -40,12 +40,16 @@ main(int argc, char *argv[]) {
     return 0;
 }
 
+/*Computes the area of r*/
 static unsigned int 
 area(struct rectangle r) {
     return (r.lower_right.x - r.upper_left.x) * (r.upper_left.y -
     r.lower_right.y);
 }
 
+/*Compute the center of r, returning it as a point value. If either the x or y
+ * coordinate of the center isnt an integer, store its truncated value in the
+ * point structure*/
 static struct point
 center(struct rectangle r) {
     struct point center;
@@ -56,6 +60,8 @@ center(struct rectangle r) {
     return center;
 }
 
+/*Move r by x units in the x direction and y units in the y direction, returning
+ * the modified version of r*/
 static struct rectangle
 move(struct rectangle r, int x, int y) {
     r.lower_right.x = r.lower_right.x + x;
@@ -66,6 +72,7 @@ move(struct rectangle r, int x, int y) {
     return r;
 }
 
+/*Determine whether a point p lies within r, returning true or false.*/
 static bool
 test(struct rectangle r, struct point p) {
     if (r.upper_left.x + p.x < r.lower_right.x && r.lower_right.y + p.y < r.upper_left.y) 
