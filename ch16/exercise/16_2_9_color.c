@@ -12,12 +12,13 @@ static unsigned char getRed(struct color c);
 static bool equal_color(struct color color1, struct color color2);
 static struct color brighter(struct color c);
 static struct color darker(struct color c);
-
+static unsigned char range_check(unsigned char color);
+static unsigned char clip(int color);
+ 
 int 
 main(int argc, char* argv[]) {
-    struct color color_struct = make_color(244,244,244);
+    struct color color_struct = make_color(257,244,244);
     struct color color_original = make_color(100,100,100);
-
     struct color brighter_color;
     struct color darker_color;
 
@@ -44,26 +45,10 @@ main(int argc, char* argv[]) {
 static struct color 
 make_color(int red, int green, int blue) {
     struct color temp; 
-    if (red < 0)
-        temp.red = 0;
-    else if (red > 255)
-        temp.red = 255;
-    else
-        temp.red = red;
-    
-    if (green < 0)
-        temp.green = 0;
-    else if (green > 255)
-        temp.green = 255;
-    else
-        temp.green = green;
-
-    if (blue < 0)
-        temp.blue = 0;
-    else if (blue > 255)
-        temp.blue = 255;
-    else
-        temp.blue = blue;
+ 
+    temp.red = clip(red);
+    temp.green = clip(green);
+    temp.blue = clip(blue);
 
     return temp;
 }
@@ -71,7 +56,6 @@ make_color(int red, int green, int blue) {
 
 static unsigned char 
 getRed(struct color c) {
-
     return c.red;
 }
 
@@ -96,28 +80,9 @@ brighter(struct color c) {
         c.green = 3;
         c.blue = 3;
     } else {
-
-        if (c.red > 0 && c.red < 3)
-            c.red = 3 / 0.7;
-        else
-            c.red = c.red / 0.7;
-        
-        if (c.green > 0 && c.green < 3)
-            c.green = 3 / 0.7;
-        else
-            c.green = c.green / 0.7;
-        
-        if (c.blue > 0 && c.blue < 3)
-            c.blue = 3 / 0.7;
-        else
-            c.blue = c.blue / 0.7;
-        
-        if (c.red > 255) 
-            c.red = 255;
-        if (c.green > 255)
-            c.green = 255;
-        if (c.blue > 255)
-            c.blue = 255;                
+        c.red = range_check(c.red);
+        c.green = range_check(c.green);
+        c.blue = range_check(c.blue);
     }
     return c;
 }
@@ -133,6 +98,34 @@ darker(struct color c) {
     return c;
 }
 
+/*checks if color is in particular range before making brighter*/
+static unsigned char
+range_check(unsigned char color) {
+    unsigned char c;
 
+    if (color > 0 && color < 3)
+        c = 3/0.7;
+    else
+        c = color / 0.7;
 
-        
+    if (c > 255)
+        c = 255;
+   
+     return c;
+}
+
+/*clips the inputted color to range between 0 and 255 and assigns to unsigned
+ * char type*/
+static unsigned char
+clip(int color) {
+    unsigned char c;
+
+    if (color < 0)
+        c = 0;
+    else if (color > 255)
+        c = 255;
+    else
+        c = color;
+    
+    return c;
+}        
