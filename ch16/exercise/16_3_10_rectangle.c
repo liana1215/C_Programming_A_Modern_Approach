@@ -15,7 +15,7 @@ main(int argc, char *argv[]) {
     struct point p;
     int x, y, ch;
 
-    r = (struct rectangle){
+    r = (struct rectangle) {
         .upper_left = { 1, 5 },
         .lower_right = { 5, 1 }
     };
