@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #define FUNC 3
+
 void tabulate(double (*f)(double), double first, double last, double incr);
   
 int 
@@ -10,10 +11,8 @@ main(void) {
     int i;
     void (*f[FUNC]) = {cos, sin, tan};
     char *s[FUNC] = {"cos", "sin", "tan"};
-
     int f_length = sizeof(f) / sizeof(f[0]);
 
-   
     printf("Enter initial value: ");
     scanf("%lf", &initial);
     
@@ -23,29 +22,11 @@ main(void) {
     printf("Enter increment: ");
     scanf("%lf", &increment);
     
-
     for (i = 0; i < f_length; i++) {
         printf("\n      x       %s(x)"
                "\n   -------    -------\n",s[i]);
         tabulate(f[i], initial, final, increment);
     }
-   
-
-    /*
-    printf("\n      x       cos(x)"
-           "\n   -------    -------\n");
-    tabulate(cos, initial, final, increment);
-
-    printf("\n      x       sin(x)"
-           "\n   -------    -------\n");
-    tabulate(sin, initial, final, increment);
-
-    printf("\n      x       tan(x)"
-           "\n   -------    -------\n");
-    tabulate(tan, initial, final, increment);
-    */
-
-
     return 0;
 }
 
