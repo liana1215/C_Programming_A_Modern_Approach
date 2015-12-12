@@ -24,6 +24,8 @@ main(int argc, char* argv[]) {
     return 0;
 }
 
+/*Adds a new node to the existing node structure, and returns a pointer to the
+ * new node*/
 static struct node
 *add_to_list(struct node *list, int n) {
     struct node *new_node;
@@ -38,6 +40,8 @@ static struct node
     return new_node;
 }
 
+/*Takes in values from the user and creates a new node, calling the add_to_list
+ * method, and stores the inputted value.*/
 static struct node
 *read_numbers(void) {
     struct node *first = NULL;
@@ -52,6 +56,8 @@ static struct node
     }
 }
 
+/*Counts the number of occurences of a value specified by the user in the node
+ * structure and returns the value of the counter.*/
 static int
 count_occurences(struct node *list, int n) {
     struct node *p;
